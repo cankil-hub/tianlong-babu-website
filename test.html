@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试页面</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
+</head>
+<body>
+    <h1>测试 Markdown 加载</h1>
+    <div id="test-content">
+        <p>正在加载内容...</p>
+    </div>
+
+    <script>
+        // 简单的测试函数
+        async function testMarkdownLoad() {
+            try {
+                console.log('开始测试...');
+                console.log('jsyaml:', typeof jsyaml);
+                console.log('marked:', typeof marked);
+                
+                const response = await fetch('storyContent.md');
+                console.log('fetch response:', response.ok);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const content = await response.text();
+                console.log('文件内容长度:', content.length);
+                console.log('文件开头:', content.substring(0, 100));
+                
+                // 解析 YAML front matter
+                const firstSeparator = content.indexOf('---');
+                const secondSeparator = content.indexOf('---', firstSeparator + 3);
+                
+                if (firstSeparator === -1 || secondSeparator === -1) {
+                    throw new Error('找不到 YAML front matter 分隔符');
+                }
+                
+                const yamlString = content.slice(firstSeparator + 3, secondSeparator).trim();
+                const markdownString = content.slice(secondSeparator + 3).trim();
+                
+                console.log('YAML 部分:', yamlString);
+                console.log('Markdown 部分长度:', markdownString.length);
+                
+                // 解析 YAML
+                const metadata = jsyaml.load(yamlString);
+                console.log('解析的 metadata:', metadata);
+                
+                // 解析 Markdown
+                const htmlContent = marked.parse(markdownString);
+                console.log('HTML 内容长度:', htmlContent.length);
+                
+                // 显示内容
+                document.getElementById('test-content').innerHTML = `
+                    <h2>${metadata.title}</h2>
+                    <p><strong>作者:</strong> ${metadata.author}</p>
+                    <p><strong>摘要:</strong> ${metadata.summary}</p>
+                    <hr>
+                    <div>${htmlContent}</div>
+                `;
+                
+                console.log('测试成功完成！');
+                
+            } catch (error) {
+                console.error('测试失败:', error);
+                document.getElementById('test-content').innerHTML = `
+                    <div style="color: red; border: 1px solid red; padding: 10px;">
+                        <h3>错误信息:</h3>
+                        <p>${error.message}</p>
+                        <p>请查看浏览器控制台获取更多详细信息。</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 页面加载完成后执行测试
+        document.addEventListener('DOMContentLoaded', testMarkdownLoad);
+    </script>
+</body>
+</html> 

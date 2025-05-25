@@ -1,0 +1,261 @@
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Serif SC', 'Source Han Serif', serif;
+}
+
+body {
+    font-family: 'Noto Sans SC', 'Source Han Sans', sans-serif;
+}
+
+/* Character card hover effects */
+.character-card {
+    transition: all 0.3s ease;
+}
+
+.character-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Compact character card styling */
+.character-card-compact {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.character-card-compact:hover {
+    transform: translateY(-5px);
+}
+
+/* Animation for content loading */
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Character filter buttons */
+.character-filter-btn.active {
+    background-color: #1f2937; /* Tailwind gray-800 */
+    color: white;
+}
+
+/* Modal styling */
+.max-h-90vh {
+    max-height: 90vh;
+}
+
+/* Custom styles for markdown content */
+.markdown-content h1 { /* Typically page title, handled by HTML directly */
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.markdown-content h2 { /* Main headings within markdown, e.g., "## 降龙十八掌" */
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: bold;
+    margin-top: 2.5rem; 
+    margin-bottom: 1.25rem;
+    color: #1f2937; /* gray-800 */
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb; /* gray-200 */
+}
+
+.markdown-content h3 { /* Sub-headings within markdown */
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #273242; /* Slightly lighter than h2 */
+}
+
+.markdown-content h4 { /* Sub-sub-headings within markdown */
+    font-size: 1.25rem; /* text-xl */
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #374151; /* gray-700 */
+}
+
+
+.markdown-content p {
+    margin-bottom: 1rem;
+    line-height: 1.75; /* Increased line height for readability */
+    font-size: 1rem; /* text-base */
+    color: #374151; /* gray-700 */
+}
+
+.markdown-content ul, .markdown-content ol {
+    list-style-position: outside;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+.markdown-content ul { list-style-type: disc; }
+.markdown-content ol { list-style-type: decimal; }
+
+
+.markdown-content li {
+    margin-bottom: 0.75rem; 
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid #60a5fa; /* blue-400 */
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    color: #4b5563; /* gray-600 */
+    background-color: #f9fafb; /* gray-50 */
+    border-radius: 0.375rem; /* rounded-md */
+    font-style: italic;
+}
+
+.markdown-content blockquote p {
+    margin-bottom: 0.5rem; 
+}
+.markdown-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Style for images in markdown content */
+.markdown-content figure {
+    margin: 2rem auto; /* Increased vertical margin */
+    max-width: 95%;   /* Allow slightly wider figures */
+    display: block;   /* Ensure figure behaves as a block */
+}
+
+.markdown-content figure img {
+    max-width: 100%; /* Image takes full width of its figure container */
+    height: auto;
+    display: block; /* Remove any extra space below img */
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.75rem; /* Tailwind rounded-xl */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12); /* Enhanced shadow */
+    border: 1px solid #e5e7eb; /* Subtle border, Tailwind gray-200 */
+}
+
+.markdown-content figure figcaption {
+    text-align: center;
+    font-size: 0.9rem; /* text-sm */
+    color: #6b7280; /* gray-500 */
+    margin-top: 0.75rem; /* Increased space between image and caption */
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* If images are not in figures (direct img tags) */
+.markdown-content > p > img, .markdown-content > img {
+    max-width: 520px;  /* 400px * 1.3 = 520px */
+    max-height: 390px; /* 300px * 1.3 = 390px */
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    margin: 2rem auto;
+    display: block;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e7eb;
+}
+
+/* Specific styling for inline images with style attributes */
+.markdown-content img[style*="width"] {
+    max-width: 520px !important;  /* 400px * 1.3 = 520px */
+    max-height: 390px !important; /* 300px * 1.3 = 390px */
+    object-fit: cover !important;
+}
+
+/* Keep character images at original size */
+.character-card img {
+    max-width: 400px !important;
+    max-height: 300px !important;
+    width: 100% !important;
+    height: 256px !important; /* h-64 equivalent */
+    object-fit: cover !important;
+}
+
+
+/* Active navigation link highlight */
+nav a.active-nav {
+    font-weight: bold;
+    color: #1f2937; /* Dark gray text */
+    background-color: #f3f4f6; /* Light gray background */
+}
+
+
+/* Toggleable headings style */
+.toggleable-heading {
+    /* Add specific styles for toggleable headings if desired */
+}
+
+/* Tooltip styling from script.js */
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* Or your preferred styling */
+    cursor: help;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555; /* Tailwind gray-700 */
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 10;
+    bottom: 125%; /* Position the tooltip above the text */
+    left: 50%;
+    margin-left: -80px; /* Use half of the width to center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+

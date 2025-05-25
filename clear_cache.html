@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓存清理 - 天龙八部</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 40px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 600px;
+        }
+        .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .success { color: #4CAF50; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 天龙八部网页缓存清理</h1>
+        <p>如果图片显示不正常，请点击下面的按钮清理缓存：</p>
+        
+        <button class="btn" onclick="clearCache()">🗑️ 清理缓存</button>
+        <button class="btn" onclick="goToMain()">🏠 返回主页</button>
+        
+        <div id="status"></div>
+        
+        <div style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+            <h3>📋 手动清理步骤：</h3>
+            <ol style="text-align: left;">
+                <li><strong>Chrome/Edge:</strong> 按 Ctrl+Shift+Delete → 选择"图片和文件" → 清除数据</li>
+                <li><strong>Firefox:</strong> 按 Ctrl+Shift+Delete → 选择"缓存" → 立即清除</li>
+                <li><strong>或者:</strong> 按 Ctrl+F5 强制刷新页面</li>
+                <li><strong>或者:</strong> 使用无痕/隐私模式浏览</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function clearCache() {
+            // 清理localStorage
+            localStorage.clear();
+            
+            // 清理sessionStorage
+            sessionStorage.clear();
+            
+            // 显示成功消息
+            document.getElementById('status').innerHTML = 
+                '<div class="success">✅ 缓存已清理！正在重新加载页面...</div>';
+            
+            // 延迟后重新加载页面
+            setTimeout(() => {
+                // 添加时间戳参数强制刷新
+                const timestamp = new Date().getTime();
+                window.location.href = `index.html?v=${timestamp}`;
+            }, 2000);
+        }
+        
+        function goToMain() {
+            const timestamp = new Date().getTime();
+            window.location.href = `index.html?v=${timestamp}`;
+        }
+        
+        // 页面加载时自动清理一次
+        window.onload = function() {
+            console.log('页面加载完成，缓存已自动清理');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片测试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-test { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        img { max-width: 400px; height: 300px; object-fit: cover; border: 2px solid #ddd; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ 天龙八部网页图片测试</h1>
+    
+    <div class="image-test">
+        <h2>人物图片测试</h2>
+        <div>
+            <h3>乔峰</h3>
+            <img src="pic/Qiao_Feng.png" alt="乔峰" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+        
+        <div>
+            <h3>段誉</h3>
+            <img src="pic/Duan_Yu.png" alt="段誉" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+        
+        <div>
+            <h3>虚竹</h3>
+            <img src="pic/Xuzhu.png" alt="虚竹" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+    </div>
+    
+    <div class="image-test">
+        <h2>武功图片测试</h2>
+        <div>
+            <h3>降龙十八掌</h3>
+            <img src="pic/降龙十八掌.png" alt="降龙十八掌" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+        
+        <div>
+            <h3>六脉神剑</h3>
+            <img src="pic/六脉神剑.png" alt="六脉神剑" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+    </div>
+    
+    <div class="image-test">
+        <h2>地理图片测试</h2>
+        <div>
+            <h3>雁门关</h3>
+            <img src="pic/雁门关.png" alt="雁门关" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+        
+        <div>
+            <h3>大理三塔</h3>
+            <img src="pic/大理三塔.png" alt="大理三塔" onerror="this.style.border='2px solid red'; this.nextElementSibling.innerHTML='❌ 图片加载失败'" onload="this.nextElementSibling.innerHTML='✅ 图片加载成功'">
+            <p class="status">加载中...</p>
+        </div>
+    </div>
+    
+    <div class="image-test">
+        <h2>背景图片测试</h2>
+        <div>
+            <h3>三兄弟聚首（背景图）</h3>
+            <div style="width: 400px; height: 300px; background-image: url('pic/三兄弟聚首.png'); background-size: cover; background-position: center; border: 2px solid #ddd;" 
+                 onload="document.getElementById('bg-status').innerHTML='✅ 背景图加载成功'" 
+                 onerror="document.getElementById('bg-status').innerHTML='❌ 背景图加载失败'">
+            </div>
+            <p id="bg-status">背景图测试</p>
+        </div>
+    </div>
+    
+    <div class="image-test">
+        <h2>📋 检查清单</h2>
+        <ul>
+            <li>✅ 服务器运行在 http://localhost:8001</li>
+            <li>✅ 所有图片文件都在 pic/ 文件夹中</li>
+            <li>✅ 图片路径已更新为本地路径</li>
+            <li>🔄 请检查上面的图片是否都能正常显示</li>
+        </ul>
+    </div>
+    
+    <div class="image-test">
+        <h2>🔧 如果图片还是不显示，请尝试：</h2>
+        <ol>
+            <li><strong>强制刷新</strong>：按 Ctrl+F5 (Windows) 或 Cmd+Shift+R (Mac)</li>
+            <li><strong>清除缓存</strong>：按 F12 → 右键刷新按钮 → "清空缓存并硬性重新加载"</li>
+            <li><strong>检查控制台</strong>：按 F12 → Console 标签，查看是否有错误信息</li>
+            <li><strong>尝试无痕模式</strong>：打开浏览器的无痕/隐私模式</li>
+        </ol>
+    </div>
+</body>
+</html> 
