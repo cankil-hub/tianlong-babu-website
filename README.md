@@ -21,13 +21,13 @@
 
 ## 🚀 在线访问
 
-访问网站：[GitHub Pages链接]
+访问网站：[https://cankil-hub.github.io/tianlong-babu-website/](https://cankil-hub.github.io/tianlong-babu-website/)
 
 ## 💻 本地运行
 
 1. 克隆仓库：
 ```bash
-git clone [仓库地址]
+git clone https://github.com/cankil-hub/tianlong-babu-website.git
 cd tianlong-babu-website
 ```
 
@@ -66,4 +66,4 @@ python -m http.server 8000
 
 ---
 
-*让我们一起在数字时代传承武侠文化的魅力！* 
+*让我们一起在数字时代传承武侠文化的魅力！*
