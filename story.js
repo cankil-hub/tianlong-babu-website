@@ -1,24 +1,56 @@
 // Function to load and process Markdown content from a given file and display it in a target element
 async function loadMarkdownContent(filePath, targetElementId, title = null) {
     try {
-        const response = await fetch(filePath);
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch content from ${filePath}: ${response.status}`);
+        // 尝试使用不同的方式获取文件内容
+        let response;
+        let mdContent;
+        
+        try {
+            // 首先尝试直接fetch
+            response = await fetch(filePath);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            mdContent = await response.text();
+        } catch (fetchError) {
+            console.warn(`Direct fetch failed for ${filePath}:`, fetchError);
+            
+            // 如果直接fetch失败，尝试添加缓存破坏参数
+            try {
+                const cacheBuster = '?v=' + Date.now();
+                response = await fetch(filePath + cacheBuster);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                mdContent = await response.text();
+            } catch (secondError) {
+                console.error(`All fetch attempts failed for ${filePath}:`, secondError);
+                throw new Error(`Unable to load ${filePath}`);
+            }
         }
-
-        const mdContent = await response.text();
 
         // Find the separator between YAML front matter and Markdown content
         const firstSeparator = mdContent.indexOf('---');
         const secondSeparator = mdContent.indexOf('---', firstSeparator + 3);
 
-        // Extract YAML and Markdown parts
-        const yamlString = mdContent.slice(firstSeparator + 3, secondSeparator).trim();
-        const markdownString = mdContent.slice(secondSeparator + 3).trim();
+        let markdownString;
+        let metadata = {};
 
-        // Parse YAML to get metadata
-        const metadata = jsyaml.load(yamlString);
+        if (firstSeparator === 0 && secondSeparator > 0) {
+            // 有YAML前置内容
+            const yamlString = mdContent.slice(firstSeparator + 3, secondSeparator).trim();
+            markdownString = mdContent.slice(secondSeparator + 3).trim();
+            
+            try {
+                metadata = jsyaml.load(yamlString) || {};
+            } catch (yamlError) {
+                console.warn('YAML parsing failed:', yamlError);
+                metadata = {};
+            }
+        } else {
+            // 没有YAML前置内容，直接使用整个内容作为markdown
+            markdownString = mdContent.trim();
+        }
 
         // Configure marked.js to handle HTML properly
         marked.setOptions({
@@ -66,9 +98,15 @@ async function loadMarkdownContent(filePath, targetElementId, title = null) {
         if (targetContainer) {
             targetContainer.innerHTML = `
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                    <p>加载内容时出错，请稍后再试。</p>
+                    <p>加载内容时出错，请稍后再试。错误详情: ${error.message}</p>
+                    <p class="text-sm mt-2">正在尝试重新加载...</p>
                 </div>
             `;
+            
+            // 3秒后重试一次
+            setTimeout(() => {
+                loadMarkdownContent(filePath, targetElementId, title);
+            }, 3000);
         }
     }
 }
