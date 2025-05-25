@@ -24,8 +24,22 @@ async function loadMarkdownContent(filePath, targetElementId, title = null) {
                 }
                 mdContent = await response.text();
             } catch (secondError) {
-                console.error(`All fetch attempts failed for ${filePath}:`, secondError);
-                throw new Error(`Unable to load ${filePath}`);
+                console.warn(`Cache-buster fetch also failed for ${filePath}:`, secondError);
+                
+                // 最后尝试从静态内容获取
+                if (typeof getStaticContent === 'function') {
+                    const staticContent = getStaticContent(filePath);
+                    if (staticContent) {
+                        console.log(`Using static content for ${filePath}`);
+                        mdContent = staticContent;
+                    } else {
+                        console.error(`No static content available for ${filePath}`);
+                        throw new Error(`Unable to load ${filePath} from any source`);
+                    }
+                } else {
+                    console.error(`Static content function not available for ${filePath}`);
+                    throw new Error(`Unable to load ${filePath}`);
+                }
             }
         }
 
